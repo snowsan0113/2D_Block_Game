@@ -1,0 +1,13 @@
+﻿################################################################################
+# この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
+################################################################################
+
+/.vs/2D_Block_Game
+/2D_Block_Game.sln
+/2D_Block_Game.vcxproj
+/2D_Block_Game.vcxproj.filters
+/2D_Block_Game.vcxproj.user
+/2D_Block_Game/x64/Debug
+/2D_Block_Game/x64/Debug
+/x64/Debug
+/Log.txt
