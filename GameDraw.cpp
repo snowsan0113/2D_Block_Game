@@ -1,7 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <DxLib.h>
 #include "main.h"
 #include "GameDraw.h"
 #include "GameManager.h"
+#include "GameUtil.h"
 
 void drawTitleScene() {
     //タイトル画面じゃない場合は終了する
@@ -9,10 +11,18 @@ void drawTitleScene() {
         return;
     }
 
+    if (time % 100 < 80) drawTextC(WINDOW_WIDTH*0.5, WINDOW_HEIGHT*0.5, 
+        "ゲームを開始するにはスペースキー", 30, 
+            GetColor(255, 255, 255), GetColor(0, 0, 0)
+        );
+
     //スペースキーを押し、ゲームを開始する
     if (CheckHitKey(KEY_INPUT_SPACE)) {
         game_status = GameStatus::RUNNING;
+        time = 0;
     }
+
+    time++;
 }
 
 void drawRunningScene() {
@@ -20,6 +30,11 @@ void drawRunningScene() {
     if (game_status != GameStatus::RUNNING) {
         return;
     }
+
+    time++;
+    char timer_text[100] = "";
+    sprintf(timer_text, "%d", time);
+    drawTextC(WINDOW_WIDTH - 50, 20, timer_text, 30, GetColor(255, 255, 255), GetColor(0, 0, 0));
 
     //プレイヤーを動かす
     if (CheckHitKey(KEY_INPUT_LEFT)) {
@@ -33,6 +48,13 @@ void drawRunningScene() {
     }
 
     jumpPlayer();
+
+    //プレイヤーが画面外に出た場合はゲーム終了
+    if (0 > player_data.obj_loc.x || player_data.obj_loc.x > WINDOW_WIDTH ||
+        0 > player_data.obj_loc.y || player_data.obj_loc.y > WINDOW_HEIGHT) {
+        game_status = GameStatus::ENDING;
+        time = 0;
+    }
 
     //プレイヤーの描画
     DrawBox(
@@ -61,4 +83,18 @@ void drawRunningScene() {
         }
     }
 
+}
+
+void drawEndingScene() {
+    if (game_status != GameStatus::ENDING) {
+        return;
+    }
+
+    time++;
+    drawTextC(WINDOW_WIDTH*0.5, WINDOW_HEIGHT*0.5, "ゲームオーバー", 30, GetColor(255, 255, 255), GetColor(0,0, 0));
+
+    if (time > 200) {
+        initGame();
+        game_status = GameStatus::TITLE;
+    }
 }

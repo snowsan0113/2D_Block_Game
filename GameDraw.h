@@ -2,3 +2,4 @@
 
 void drawTitleScene();
 void drawRunningScene();
+void drawEndingScene();

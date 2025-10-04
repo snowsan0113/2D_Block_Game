@@ -2,10 +2,12 @@
 
 void jumpPlayer();
 bool isPlayerOnGround();
+int initGame();
 
 enum GameStatus {
 	TITLE,
-	RUNNING
+	RUNNING,
+    ENDING
 };
 
 struct ObjectLocation {

@@ -8,7 +8,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     SetWindowText("Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†");
     SetGraphMode(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_COLORBIT);
     ChangeWindowMode(true);
-    if (DxLib_Init() == -1) {
+    if (DxLib_Init() == -1 || initGame() == -1) {
         MessageBox(NULL, "ÉQÅ[ÉÄÇèâä˙âªÇ∑ÇÈÇ±Ç∆Ç™Ç≈Ç´Ç‹ÇπÇÒÇ≈ÇµÇΩÅB", NULL, MB_OK | MB_ICONERROR);
         DxLib_End();
         return -1;
@@ -25,6 +25,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             break;
         case GameStatus::RUNNING :
             drawRunningScene();
+            break;
+        case GameStatus::ENDING :
+            drawEndingScene();
             break;
         }
 

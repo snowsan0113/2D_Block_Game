@@ -35,3 +35,13 @@ bool isPlayerOnGround() {
 
 	return false;
 }
+
+int initGame() {
+	time = 0;
+	player_data.obj_loc.x = 30;
+	player_data.obj_loc.y = WINDOW_HEIGHT * 0.75;
+	player_data.obj_vec.x = 5;
+	player_data.obj_vec.y = 5;
+
+	return 0;
+}
