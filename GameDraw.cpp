@@ -28,11 +28,16 @@ void drawRunningScene() {
     if (CheckHitKey(KEY_INPUT_RIGHT)) {
         player_data.obj_loc.x = player_data.obj_loc.x + player_data.obj_vec.x; //右キーで現在のベクトルX分、右に移動する（数値を足す）
     }
+    if (CheckHitKey(KEY_INPUT_SPACE) && isPlayerOnGround()) {
+        player_data.obj_vec.y = 10;
+    }
+
+    jumpPlayer();
 
     //プレイヤーの描画
     DrawBox(
-        player_data.obj_loc.x - player_data.width, player_data.obj_loc.y - player_data.height,
-        player_data.obj_loc.x + player_data.width, player_data.obj_loc.y + player_data.height,
+        player_data.obj_loc.x - player_data.width / 2, player_data.obj_loc.y - player_data.height / 2,
+        player_data.obj_loc.x + player_data.width / 2, player_data.obj_loc.y + player_data.height / 2,
         player_data.color,
         true
     );
@@ -47,8 +52,8 @@ void drawRunningScene() {
             //1だった場合は、床ブロックに置き換える
             if (MAP[y][x] == 1) {
                 DrawBox(
-                    screen_x - MAP_PIXEL / 2, screen_y - MAP_PIXEL / 2, 
-                    screen_x + MAP_PIXEL / 2, screen_y + MAP_PIXEL / 2, 
+                    screen_x, screen_y, 
+                    screen_x + MAP_PIXEL, screen_y + MAP_PIXEL, 
                     GetColor(255, 255, 255), 
                     true
                 );

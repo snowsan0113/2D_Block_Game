@@ -1,5 +1,8 @@
 #pragma once
 
+void jumpPlayer();
+bool isPlayerOnGround();
+
 enum GameStatus {
 	TITLE,
 	RUNNING
